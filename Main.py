@@ -5,8 +5,9 @@ from pygame.locals import *
 
 # INIT
 pygame.init()
-screen = pygame.display.set_mode((650, 500), pygame.RESIZABLE, 32)
+screen = pygame.display.set_mode((650, 500))
 pygame.display.set_caption("paint")
+
 
 # <editor-fold desc="varibles">
 # COLOR
@@ -22,13 +23,12 @@ sub_menu = screen.subsurface(location_menu)
 sub_tool = screen.subsurface(location_tool)
 # </editor-fold>
 
+
+
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             sys.exit(0)
-        if event.type == VIDEORESIZE:
-            size = event.size
-            screen = pygame.display.set_mode(size, pygame.RESIZABLE, 32)
     screen.fill(color_bottle_background)
     sub_menu.fill(color_menu_tools)
     sub_tool.fill(color_menu_tools)
