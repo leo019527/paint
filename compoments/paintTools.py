@@ -5,8 +5,10 @@
 
 #画图工具的父类
 import pygame
+import globalList
 
-def text(screen,say):
+def text(say):
+    screen = globalList.GLOBAL_MAINSCREEN
     width = screen.get_width()
     height = screen.get_height()
     text = pygame.font.Font("arial", "16").render(say, True, (0, 0, 0))
@@ -15,16 +17,10 @@ def text(screen,say):
     screen.blit(text, ((width - textWidth) / 2, (height - textHeight) / 2))
 
 class paintTools:
-    def __init__(self,screen,color=(0,0,0),size=5):
-        self.color = color
-        self.size = size
-        self.screen = screen
-        self.flag=False
-
     #画图设置
     def drawSet(self):
-        text(self.screen,"You haven't choose the tool")
+        text("You haven't choose the tool")
 
     #画图
     def draw(self):
-        text(self.screen,"You haven't set the tool")
+        text("You haven't set the tool")
