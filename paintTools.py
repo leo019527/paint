@@ -5,7 +5,9 @@
 
 #画图工具的父类
 import pygame
+
 import globalList
+
 
 def text(say):
     screen = globalList.GLOBAL_MAINSCREEN
