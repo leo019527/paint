@@ -44,6 +44,7 @@ while True:
     screen.blit(globalList.GLOBAL_RED, (0, 550))
     screen.blit(globalList.GLOBAL_GREEN, (0, 600))
     screen.blit(globalList.GLOBAL_BLUE, (0, 650))
+    #处理鼠标事件
     x, y = pygame.mouse.get_pos()
     if pygame.mouse.get_pressed()[0]:
         for component in range(3):
@@ -66,6 +67,8 @@ while True:
         globalList.GLOBAL_PENCHOOSE = 'spray'
     elif pressed_keys[K_4]:
         globalList.GLOBAL_PENCHOOSE = 'bucket'
+    elif pressed_keys[K_5]:
+        globalList.GLOBAL_PENCHOOSE = 'tube'
     #增减笔刷大小
     if pressed_keys[61]:
         if not pressFlagPlus:
