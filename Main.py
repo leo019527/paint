@@ -5,9 +5,8 @@ from pygame import *
 from pygame.locals import *
 from pen import *
 import globalList
-import paintTools
 import functions
-from eraser import Eraser
+import time
 
 
 # INIT
@@ -22,6 +21,7 @@ pressFlagMinus = False
 globalList.GLOBAL_RED,\
     globalList.GLOBAL_GREEN,\
     globalList.GLOBAL_BLUE = functions.create_scales(50)
+globalList.GLOBAL_SPRAY_TIME = time.time()
 
 
 # <editor-fold desc="varibles">
@@ -59,6 +59,8 @@ while True:
         globalList.GLOBAL_PENCHOOSE = 1
     elif pressed_keys[K_2]:
         globalList.GLOBAL_PENCHOOSE = 2
+    elif pressed_keys[K_3]:
+        globalList.GLOBAL_PENCHOOSE = 3
     #增减笔刷大小
     if pressed_keys[61]:
         if not pressFlagPlus:

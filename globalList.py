@@ -5,7 +5,7 @@
 
 GLOBAL_RGB = (0,0,0)
 GLOBAL_PENSIZE = 1
-#0表示未选，1表示pen,2表示橡皮
+#0表示未选，1表示pen,2表示橡皮,3表示喷雾
 GLOBAL_PENCHOOSE = 1
 GLOBAL_MAINSCREEN = 0
 
@@ -17,3 +17,6 @@ GLOBAL_BLUE = 0
 #pen
 GLOBAL_PEN_LASTPOS=(-1,-1)
 GLOBAL_PEN_FLAG=False
+
+#spray
+GLOBAL_SPRAY_TIME = 0

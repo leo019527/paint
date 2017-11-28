@@ -3,9 +3,7 @@
 # @Author  : leolee
 # @File    : eraser.py
 import pygame
-
 import globalList
-import paintTools
 
 
 class Eraser():

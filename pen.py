@@ -4,7 +4,6 @@
 # @File    : pen.py
 import pygame
 import globalList
-import paintTools
 
 
 class Pen():

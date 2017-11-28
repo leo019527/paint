@@ -6,6 +6,7 @@ import pygame
 import globalList
 from pen import Pen
 from eraser import Eraser
+from spray import Spray
 from pygame.locals import *
 
 def pointInRect(pos,rect):
@@ -20,6 +21,9 @@ def setTools():
     elif globalList.GLOBAL_PENCHOOSE == 2:
         E = Eraser()
         return E
+    elif globalList.GLOBAL_PENCHOOSE == 3:
+        S = Spray()
+        return S
 
 def create_scales(height):
     red_scale_surface = pygame.surface.Surface((575, height))
