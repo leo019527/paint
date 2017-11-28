@@ -16,6 +16,8 @@ mainSurface = Surface((500,500))
 mainSurface.fill((255,255,255))
 pygame.display.set_caption("paint")
 globalList.GLOBAL_MAINSCREEN = mainSurface
+globalList.GLOBAL_MAINSCREEN_WIDTH = mainSurface.get_width()
+globalList.GLOBAL_MAINSCREEN_HEIGHT = mainSurface.get_height()
 pressFlagPlus = False
 pressFlagMinus = False
 globalList.GLOBAL_RED,\
@@ -32,6 +34,7 @@ color_menu_tools = (255, 255, 255)
 
 p = Pen()
 screen.fill(color_bottle_background)
+
 
 while True:
     for event in pygame.event.get():
@@ -56,11 +59,13 @@ while True:
     pressed_keys = pygame.key.get_pressed()
     #改变工具
     if pressed_keys[K_1]:
-        globalList.GLOBAL_PENCHOOSE = 1
+        globalList.GLOBAL_PENCHOOSE = 'pen'
     elif pressed_keys[K_2]:
-        globalList.GLOBAL_PENCHOOSE = 2
+        globalList.GLOBAL_PENCHOOSE = 'eraser'
     elif pressed_keys[K_3]:
-        globalList.GLOBAL_PENCHOOSE = 3
+        globalList.GLOBAL_PENCHOOSE = 'spray'
+    elif pressed_keys[K_4]:
+        globalList.GLOBAL_PENCHOOSE = 'bucket'
     #增减笔刷大小
     if pressed_keys[61]:
         if not pressFlagPlus:
@@ -87,5 +92,5 @@ while True:
 
     screen.blit(globalList.GLOBAL_MAINSCREEN,(75,50))
     #修改标题
-    pygame.display.set_caption("Paint - pensize:" + str(globalList.GLOBAL_PENSIZE) + " RGB:" + str(globalList.GLOBAL_RGB) + " pen:" + str(globalList.GLOBAL_PENCHOOSE))
+    pygame.display.set_caption("Paint - pensize:" + str(globalList.GLOBAL_PENSIZE) + "px RGB:" + str(globalList.GLOBAL_RGB) + " tools: " + str(globalList.GLOBAL_PENCHOOSE))
     pygame.display.update()

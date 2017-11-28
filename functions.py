@@ -7,6 +7,7 @@ import globalList
 from pen import Pen
 from eraser import Eraser
 from spray import Spray
+from bucket import Bucket
 from pygame.locals import *
 
 def pointInRect(pos,rect):
@@ -15,15 +16,18 @@ def pointInRect(pos,rect):
     return True
 
 def setTools():
-    if globalList.GLOBAL_PENCHOOSE == 1:
+    if globalList.GLOBAL_PENCHOOSE == 'pen':
         P = Pen()
         return P
-    elif globalList.GLOBAL_PENCHOOSE == 2:
+    elif globalList.GLOBAL_PENCHOOSE == 'eraser':
         E = Eraser()
         return E
-    elif globalList.GLOBAL_PENCHOOSE == 3:
+    elif globalList.GLOBAL_PENCHOOSE == 'spray':
         S = Spray()
         return S
+    elif globalList.GLOBAL_PENCHOOSE == 'bucket':
+        B = Bucket()
+        return B
 
 def create_scales(height):
     red_scale_surface = pygame.surface.Surface((575, height))
