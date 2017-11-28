@@ -8,6 +8,13 @@ import globalList
 import functions
 import time
 
+# <editor-fold desc="varibles">
+# COLOR
+color_bottle_background = (189, 189, 189)
+color_menu = (118, 118, 118)
+tool_choose_flag = -1
+# </editor-fold>
+
 
 # INIT
 pygame.init()
@@ -24,13 +31,14 @@ globalList.GLOBAL_RED,\
     globalList.GLOBAL_GREEN,\
     globalList.GLOBAL_BLUE = functions.create_scales(50)
 globalList.GLOBAL_SPRAY_TIME = time.time()
+tools = []
+toolsRect = []
+for i in range(1,6):
+    tools.append(pygame.image.load("imgs/"+str(i)+".png").convert())
+for i in range(5):
+    toolsRect.append((5,80+75*i,70,145+75*i))
 
 
-# <editor-fold desc="varibles">
-# COLOR
-color_bottle_background = (189, 189, 189)
-color_menu_tools = (255, 255, 255)
-# </editor-fold>
 
 p = Pen()
 screen.fill(color_bottle_background)
@@ -40,18 +48,42 @@ while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             sys.exit(0)
+    # 工具栏
+    for i in range(5):
+        screen.blit(tools[i],(7,82+75*i))
     # 调色板
     screen.blit(globalList.GLOBAL_RED, (0, 550))
     screen.blit(globalList.GLOBAL_GREEN, (0, 600))
     screen.blit(globalList.GLOBAL_BLUE, (0, 650))
     #处理鼠标事件
     x, y = pygame.mouse.get_pos()
+    if tool_choose_flag != -1 and not functions.pointInRect((x,y),toolsRect[tool_choose_flag]):
+        functions.cleanBorder(screen,tool_choose_flag)
+        tool_choose_flag = -1
+    # 鼠标移动
+    for i in range(5):
+        if functions.pointInRect((x,y),toolsRect[i]):
+            functions.drawBorder(screen,i)
+            tool_choose_flag = i
+    # 鼠标点击
     if pygame.mouse.get_pressed()[0]:
-        for component in range(3):
-            if y > component * 50 + 550 and y < component * 50 + 600:
-                tmp = list(globalList.GLOBAL_RGB)
-                tmp[component] = int((x / 574.) * 255.)
-                globalList.GLOBAL_RGB = tmp
+        if tool_choose_flag != -1:
+            if tool_choose_flag == 0:
+                globalList.GLOBAL_PENCHOOSE = 'pen'
+            elif tool_choose_flag == 1:
+                globalList.GLOBAL_PENCHOOSE = 'eraser'
+            elif tool_choose_flag == 2:
+                globalList.GLOBAL_PENCHOOSE = 'spray'
+            elif tool_choose_flag == 3:
+                globalList.GLOBAL_PENCHOOSE = 'bucket'
+            elif tool_choose_flag == 4:
+                globalList.GLOBAL_PENCHOOSE = 'tube'
+        else:
+            for component in range(3):
+                if y > component * 50 + 550 and y < component * 50 + 600:
+                    tmp = list(globalList.GLOBAL_RGB)
+                    tmp[component] = int((x / 574.) * 255.)
+                    globalList.GLOBAL_RGB = tmp
     for component in range(3):
         pos = (int((globalList.GLOBAL_RGB[component] / 255.) * 574) , component*50 + 575)
         pygame.draw.circle(screen,(255,255,255),pos,25)

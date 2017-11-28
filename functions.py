@@ -47,3 +47,15 @@ def create_scales(height):
         pygame.draw.rect(green_scale_surface, green, line_rect)
         pygame.draw.rect(blue_scale_surface, blue, line_rect)
     return red_scale_surface, green_scale_surface, blue_scale_surface
+
+def drawBorder(screen,i):
+    pygame.draw.line(screen,(0,0,0),(5,80+75*i),(70,80+75*i),2)
+    pygame.draw.line(screen,(0,0,0),(5,80+75*i),(5,145+75*i),2)
+    pygame.draw.line(screen,(0,0,0),(70,80+75*i),(70,145+75*i),2)
+    pygame.draw.line(screen,(0,0,0),(5,145+75*i),(70,145+75*i),2)
+
+def cleanBorder(screen,i):
+    pygame.draw.line(screen, (189,189,189), (5, 80 + 75 * i), (70, 80 + 75 * i), 2)
+    pygame.draw.line(screen, (189,189,189), (5, 80 + 75 * i), (5, 145 + 75 * i), 2)
+    pygame.draw.line(screen, (189,189,189), (70, 80 + 75 * i), (70, 145 + 75 * i), 2)
+    pygame.draw.line(screen, (189,189,189), (5, 145 + 75 * i), (70, 145 + 75 * i), 2)
