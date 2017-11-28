@@ -12,6 +12,7 @@ class Eraser():
     def draw(self):
         if globalList.GLOBAL_PEN_LASTPOS != (-1,-1):
             a = pygame.mouse.get_pos()
+            a = (a[0] - 75, a[1] - 50)
             pygame.draw.line(globalList.GLOBAL_MAINSCREEN,
                              (255,255,255),
                              globalList.GLOBAL_PEN_LASTPOS,
