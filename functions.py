@@ -9,6 +9,7 @@ from eraser import Eraser
 from spray import Spray
 from bucket import Bucket
 from tube import Tube
+from rectangle import Rectangle
 from pygame.locals import *
 
 def pointInRect(pos,rect):
@@ -32,6 +33,9 @@ def setTools():
     elif globalList.GLOBAL_PENCHOOSE == 'tube':
         T = Tube()
         return T
+    elif globalList.GLOBAL_PENCHOOSE == 'rectangle':
+        R = Rectangle()
+        return R
 
 def create_scales(height):
     red_scale_surface = pygame.surface.Surface((575, height))

@@ -3,6 +3,8 @@
 # @Author  : leolee
 # @File    : globalList.py
 
+GLOBAL_MAINSCREEN_LIST = []
+
 GLOBAL_RGB = (0,0,0)
 GLOBAL_PENSIZE = 1
 #0表示未选，1表示pen,2表示橡皮,3表示喷雾

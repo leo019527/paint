@@ -13,6 +13,7 @@ import time
 color_bottle_background = (189, 189, 189)
 color_menu = (118, 118, 118)
 tool_choose_flag = -1
+ctrlZ_flag = False
 # </editor-fold>
 
 
@@ -33,9 +34,9 @@ globalList.GLOBAL_RED,\
 globalList.GLOBAL_SPRAY_TIME = time.time()
 tools = []
 toolsRect = []
-for i in range(1,6):
+for i in range(1,7):
     tools.append(pygame.image.load("imgs/"+str(i)+".png").convert())
-for i in range(5):
+for i in range(6):
     toolsRect.append((5,80+75*i,70,145+75*i))
 
 
@@ -49,7 +50,7 @@ while True:
         if event.type == QUIT:
             sys.exit(0)
     # 工具栏
-    for i in range(5):
+    for i in range(6):
         screen.blit(tools[i],(7,82+75*i))
     # 调色板
     screen.blit(globalList.GLOBAL_RED, (0, 550))
@@ -61,7 +62,7 @@ while True:
         functions.cleanBorder(screen,tool_choose_flag)
         tool_choose_flag = -1
     # 鼠标移动
-    for i in range(5):
+    for i in range(6):
         if functions.pointInRect((x,y),toolsRect[i]):
             functions.drawBorder(screen,i)
             tool_choose_flag = i
@@ -78,6 +79,8 @@ while True:
                 globalList.GLOBAL_PENCHOOSE = 'bucket'
             elif tool_choose_flag == 4:
                 globalList.GLOBAL_PENCHOOSE = 'tube'
+            elif tool_choose_flag == 5:
+                globalList.GLOBAL_PENCHOOSE = 'rectangle'
         else:
             for component in range(3):
                 if y > component * 50 + 550 and y < component * 50 + 600:
@@ -101,6 +104,17 @@ while True:
         globalList.GLOBAL_PENCHOOSE = 'bucket'
     elif pressed_keys[K_5]:
         globalList.GLOBAL_PENCHOOSE = 'tube'
+    elif pressed_keys[K_6]:
+        globalList.GLOBAL_PENCHOOSE = 'rectangle'
+    #撤销实现
+    if pressed_keys[306] and pressed_keys[122]:
+        if not ctrlZ_flag:
+            globalList.GLOBAL_MAINSCREEN = globalList.GLOBAL_MAINSCREEN_LIST[-1]
+            globalList.GLOBAL_MAINSCREEN_LIST.pop()
+            ctrlZ_flag = True
+    if not pressed_keys[306] and not pressed_keys[122]:
+        if ctrlZ_flag:
+            ctrlZ_flag = False
     #增减笔刷大小
     if pressed_keys[61]:
         if not pressFlagPlus:
@@ -123,7 +137,12 @@ while True:
             globalList.GLOBAL_PEN_FLAG = True
         p.draw()
     elif not pygame.mouse.get_pressed()[0]:
-        globalList.GLOBAL_PEN_FLAG = False
+        if globalList.GLOBAL_PEN_FLAG == True:
+            globalList.GLOBAL_PEN_FLAG = False
+            tmp = Surface((500,500))
+            tmp.blit(globalList.GLOBAL_MAINSCREEN,(0,0))
+            globalList.GLOBAL_MAINSCREEN_LIST.append(tmp)
+            print len(globalList.GLOBAL_MAINSCREEN_LIST)
 
     screen.blit(globalList.GLOBAL_MAINSCREEN,(75,50))
     #修改标题
