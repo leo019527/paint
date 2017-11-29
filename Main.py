@@ -14,6 +14,8 @@ color_bottle_background = (189, 189, 189)
 color_menu = (118, 118, 118)
 tool_choose_flag = -1
 ctrlZ_flag = False
+tool_dic = {'pen':1,'eraser':2,'spray':3,'bucket':4,'tube':5,'rectangle':6}
+rectangle_flag = False
 # </editor-fold>
 
 
@@ -35,10 +37,9 @@ globalList.GLOBAL_SPRAY_TIME = time.time()
 tools = []
 toolsRect = []
 for i in range(1,7):
-    tools.append(pygame.image.load("imgs/"+str(i)+".png").convert())
+    tools.append(pygame.image.load("imgs/"+str(i)+".png").convert_alpha())
 for i in range(6):
     toolsRect.append((5,80+75*i,70,145+75*i))
-
 
 
 p = Pen()
@@ -49,6 +50,7 @@ while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             sys.exit(0)
+    screen.fill(color_bottle_background)
     # 工具栏
     for i in range(6):
         screen.blit(tools[i],(7,82+75*i))
@@ -108,7 +110,7 @@ while True:
         globalList.GLOBAL_PENCHOOSE = 'rectangle'
     #撤销实现
     if pressed_keys[306] and pressed_keys[122]:
-        if not ctrlZ_flag:
+        if not ctrlZ_flag and len(globalList.GLOBAL_MAINSCREEN_LIST) > 0:
             globalList.GLOBAL_MAINSCREEN = globalList.GLOBAL_MAINSCREEN_LIST[-1]
             globalList.GLOBAL_MAINSCREEN_LIST.pop()
             ctrlZ_flag = True
@@ -129,7 +131,12 @@ while True:
     elif not pressed_keys[45]:
         pressFlagMinus = False
     #画图
-    if pygame.mouse.get_pressed()[0]:
+    if pygame.mouse.get_pressed()[0] and functions.pointInRect((x,y),(75,50,575,550)):
+        if rectangle_flag == False:
+            globalList.GLOBAL_RECTANGLE_START_POS = (x-75,y-50)
+            print globalList.GLOBAL_RECTANGLE_START_POS
+            globalList.GLOBAL_RECTANGLE_SCREEN_TMP.blit(globalList.GLOBAL_MAINSCREEN,(0,0))
+            rectangle_flag = True
         p = functions.setTools()
         if not globalList.GLOBAL_PEN_FLAG:
             globalList.GLOBAL_PEN_LASTPOS = pygame.mouse.get_pos()
@@ -137,12 +144,13 @@ while True:
             globalList.GLOBAL_PEN_FLAG = True
         p.draw()
     elif not pygame.mouse.get_pressed()[0]:
+        if rectangle_flag == True:
+            rectangle_flag = False
         if globalList.GLOBAL_PEN_FLAG == True:
             globalList.GLOBAL_PEN_FLAG = False
             tmp = Surface((500,500))
             tmp.blit(globalList.GLOBAL_MAINSCREEN,(0,0))
             globalList.GLOBAL_MAINSCREEN_LIST.append(tmp)
-            print len(globalList.GLOBAL_MAINSCREEN_LIST)
 
     screen.blit(globalList.GLOBAL_MAINSCREEN,(75,50))
     #修改标题

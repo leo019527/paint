@@ -2,6 +2,7 @@
 # @Time    : 2017/11/21 16:04
 # @Author  : leolee
 # @File    : globalList.py
+from pygame import *
 
 GLOBAL_MAINSCREEN_LIST = []
 
@@ -24,3 +25,7 @@ GLOBAL_PEN_FLAG=False
 
 #spray
 GLOBAL_SPRAY_TIME = 0
+
+#rectangle
+GLOBAL_RECTANGLE_SCREEN_TMP = Surface((500,500))
+GLOBAL_RECTANGLE_START_POS = (-1,-1)

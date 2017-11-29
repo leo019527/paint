@@ -36,3 +36,4 @@ class Bucket:
         a = (a[0] - 75, a[1] - 50)
         if 0 < a[0] < globalList.GLOBAL_MAINSCREEN_WIDTH and 0 < a[1] < globalList.GLOBAL_MAINSCREEN_HEIGHT:
             self.flood(a[0],a[1],globalList.GLOBAL_RGB,globalList.GLOBAL_MAINSCREEN.get_at(a))
+
