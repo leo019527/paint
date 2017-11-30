@@ -16,6 +16,9 @@ tool_choose_flag = -1
 ctrlZ_flag = False
 tool_dic = {'pen':1,'eraser':2,'spray':3,'bucket':4,'tube':5,'rectangle':6}
 rectangle_flag = False
+open_save_name = []
+open_save_location = [(87,2,133,48),(167,2,213,48)]
+menu_choose_flag = -1
 # </editor-fold>
 
 
@@ -40,7 +43,8 @@ for i in range(1,7):
     tools.append(pygame.image.load("imgs/"+str(i)+".png").convert_alpha())
 for i in range(6):
     toolsRect.append((5,80+75*i,70,145+75*i))
-
+open_save_name.append(pygame.image.load('imgs/open.png').convert_alpha())
+open_save_name.append(pygame.image.load('imgs/save.png').convert_alpha())
 
 p = Pen()
 screen.fill(color_bottle_background)
@@ -54,6 +58,8 @@ while True:
     # 工具栏
     for i in range(6):
         screen.blit(tools[i],(7,82+75*i))
+    screen.blit(open_save_name[0],open_save_location[0])
+    screen.blit(open_save_name[1],open_save_location[1])
     # 调色板
     screen.blit(globalList.GLOBAL_RED, (0, 550))
     screen.blit(globalList.GLOBAL_GREEN, (0, 600))
@@ -63,11 +69,18 @@ while True:
     if tool_choose_flag != -1 and not functions.pointInRect((x,y),toolsRect[tool_choose_flag]):
         functions.cleanBorder(screen,tool_choose_flag)
         tool_choose_flag = -1
+    if menu_choose_flag != -1 and not functions.pointInRect((x,y),open_save_location[menu_choose_flag]):
+        functions.cleanBorder2(screen,menu_choose_flag)
+        menu_choose_flag = -1
     # 鼠标移动
     for i in range(6):
         if functions.pointInRect((x,y),toolsRect[i]):
             functions.drawBorder(screen,i)
             tool_choose_flag = i
+    for i in range(2):
+        if functions.pointInRect((x,y),open_save_location[i]):
+            functions.drawBorder2(screen,i)
+            menu_choose_flag = i
     # 鼠标点击
     if pygame.mouse.get_pressed()[0]:
         if tool_choose_flag != -1:
@@ -83,6 +96,11 @@ while True:
                 globalList.GLOBAL_PENCHOOSE = 'tube'
             elif tool_choose_flag == 5:
                 globalList.GLOBAL_PENCHOOSE = 'rectangle'
+        elif menu_choose_flag != -1:
+            if menu_choose_flag == 0:
+                functions.open()
+            if menu_choose_flag == 1:
+                functions.save()
         else:
             for component in range(3):
                 if y > component * 50 + 550 and y < component * 50 + 600:

@@ -4,6 +4,7 @@
 # @File    : functions.py
 import pygame
 import globalList
+from pygame import *
 from pen import Pen
 from eraser import Eraser
 from spray import Spray
@@ -11,6 +12,8 @@ from bucket import Bucket
 from tube import Tube
 from rectangle import Rectangle
 from pygame.locals import *
+from Tkinter import *
+import tkFileDialog
 
 def pointInRect(pos,rect):
     if pos[0] >= rect[2] or pos[0] <= rect[0] or pos[1] >= rect[3] or pos[1] <= rect[1]:
@@ -63,3 +66,37 @@ def cleanBorder(screen,i):
     pygame.draw.line(screen, (189,189,189), (5, 80 + 75 * i), (5, 145 + 75 * i), 2)
     pygame.draw.line(screen, (189,189,189), (70, 80 + 75 * i), (70, 145 + 75 * i), 2)
     pygame.draw.line(screen, (189,189,189), (5, 145 + 75 * i), (70, 145 + 75 * i), 2)
+
+def drawBorder2(screen,i):
+    pygame.draw.line(screen, (0, 0, 0), (85 + i * 80, 0), (133 + i * 80, 0), 2)
+    pygame.draw.line(screen, (0, 0, 0), (85 + i * 80, 0), (85 + i * 80, 48), 2)
+    pygame.draw.line(screen, (0, 0, 0), (133 + i * 80, 48), (133 + i * 80, 0), 2)
+    pygame.draw.line(screen, (0, 0, 0), (85 + i * 80, 48), (133 + i * 80, 48), 2)
+
+def cleanBorder2(screen,i):
+    pygame.draw.line(screen, (189,189,189), (85 + i * 80, 0), (133 + i * 80, 0), 2)
+    pygame.draw.line(screen, (189,189,189), (85 + i * 80, 0), (85 + i * 80, 48), 2)
+    pygame.draw.line(screen, (189,189,189), (133 + i * 80, 48), (133 + i * 80, 0), 2)
+    pygame.draw.line(screen, (189,189,189), (85 + i * 80, 48), (133 + i * 80, 48), 2)
+
+def open():
+    root = Tk()
+    filename = tkFileDialog.askopenfilename(initialdir="I:",filetypes=[('图片','.png')])
+    root.destroy()
+    if not filename:
+        return
+    img = pygame.image.load(filename).convert_alpha()
+    globalList.GLOBAL_MAINSCREEN.fill((255,255,255))
+    globalList.GLOBAL_MAINSCREEN.blit(img,(0,0))
+
+def save():
+    root = Tk()
+    filename = tkFileDialog.asksaveasfilename(initialdir="I:",filetypes=[('图片','.png')])
+    root.destroy()
+    if not filename:
+        return
+    if '.png' in filename:
+        pass
+    else:
+        filename += '.png'
+    pygame.image.save(globalList.GLOBAL_MAINSCREEN,filename)
