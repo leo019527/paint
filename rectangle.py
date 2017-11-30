@@ -17,4 +17,4 @@ class Rectangle:
                                                                                  a[0]-globalList.GLOBAL_RECTANGLE_START_POS[0],
                                                                                  a[1]-globalList.GLOBAL_RECTANGLE_START_POS[1]
                                                                                  ),globalList.GLOBAL_PENSIZE)
-            print globalList.GLOBAL_RECTANGLE_START_POS,a
+

@@ -142,15 +142,15 @@ while True:
             globalList.GLOBAL_PEN_LASTPOS = pygame.mouse.get_pos()
             globalList.GLOBAL_PEN_LASTPOS = (globalList.GLOBAL_PEN_LASTPOS[0]-75,globalList.GLOBAL_PEN_LASTPOS[1]-50)
             globalList.GLOBAL_PEN_FLAG = True
+            tmp = Surface((500, 500))
+            tmp.blit(globalList.GLOBAL_MAINSCREEN, (0, 0))
+            globalList.GLOBAL_MAINSCREEN_LIST.append(tmp)
         p.draw()
     elif not pygame.mouse.get_pressed()[0]:
         if rectangle_flag == True:
             rectangle_flag = False
         if globalList.GLOBAL_PEN_FLAG == True:
             globalList.GLOBAL_PEN_FLAG = False
-            tmp = Surface((500,500))
-            tmp.blit(globalList.GLOBAL_MAINSCREEN,(0,0))
-            globalList.GLOBAL_MAINSCREEN_LIST.append(tmp)
 
     screen.blit(globalList.GLOBAL_MAINSCREEN,(75,50))
     #修改标题
